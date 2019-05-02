@@ -431,6 +431,9 @@ namespace Microsoft.Msagl.GraphViewerGdi{
             get { return !(panButton.Pushed || windowZoomButton.Pushed) && EditingEnabled; }
             set { EditingEnabled = value; }
         }
+
+        public IViewerObject DefaultDragObject { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

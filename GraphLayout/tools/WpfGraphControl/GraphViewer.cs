@@ -26,7 +26,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-﻿using System;
+ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 ﻿using System.Linq;
@@ -1760,6 +1760,8 @@ namespace Microsoft.Msagl.WpfGraphControl {
                     ViewChangeEvent(null, null);
             }
         }
+
+        public IViewerObject DefaultDragObject { get; set; }
 
         void SetRenderTransformWithoutRaisingEvents(PlaneTransformation value) {
             _graphCanvas.RenderTransform = new MatrixTransform(value[0, 0], value[0, 1], value[1, 0], value[1, 1],

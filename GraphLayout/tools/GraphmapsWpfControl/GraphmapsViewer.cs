@@ -3225,6 +3225,8 @@ namespace Microsoft.Msagl.GraphmapsWpfControl
             }
         }
 
+        public IViewerObject DefaultDragObject { get; set; }
+
         void SetRenderTransformWithoutRaisingEvents(PlaneTransformation value)
         {
             _graphCanvas.RenderTransform = new MatrixTransform(value[0, 0], value[0, 1], value[1, 0], value[1, 1],
