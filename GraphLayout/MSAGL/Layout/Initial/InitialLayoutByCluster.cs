@@ -314,6 +314,8 @@ namespace Microsoft.Msagl.Layout.Initial {
 
             var bounds = MdsGraphLayout.PackGraphs(components, settings);
 
+            bounds = AdjustNewBoundsSoThatTheyRespectTheClusterSize(cluster, bounds);
+            
             foreach (var g in components)
                 FixOriginalGraph(g, true);
 
@@ -331,6 +333,20 @@ namespace Microsoft.Msagl.Layout.Initial {
 //                l.AddRange(cl.Nodes.Select(n=>new DebugCurve(n.BoundaryCurve)));
 //            }
 //            LayoutAlgorithmSettings.ShowDebugCurves(l.ToArray());
+        }
+
+        private static Rectangle AdjustNewBoundsSoThatTheyRespectTheClusterSize(
+                Cluster cluster, Rectangle bounds) 
+        {
+            if (cluster.BoundaryCurve.BoundingBox.Width > bounds.Width ||
+                cluster.BoundaryCurve.BoundingBox.Height > bounds.Height ) {
+                bounds = new Rectangle(
+                    new Point(0, 0),
+                    new Point(cluster.BoundaryCurve.BoundingBox.Width,
+                    cluster.BoundaryCurve.BoundingBox.Height));
+            }
+            
+            return bounds;
         }
 
         internal static void FixOriginalGraph(GeometryGraph graph, bool translateEdges) {
