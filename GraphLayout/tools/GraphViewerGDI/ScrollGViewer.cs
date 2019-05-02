@@ -65,7 +65,7 @@ namespace Microsoft.Msagl.GraphViewerGdi{
         bool saveAsImageEnabled = true;
         bool saveAsMsaglEnabled = true;
         bool saveInVectorFormatEnabled = true;
-        public bool ZoomWhenMouseWheelScroll { get; } = true;
+        public bool ZoomWhenMouseWheelScroll { get; set; } = true;
 
         const string panButtonToolTipText = "Pan";
         RectangleF srcRect = new RectangleF(0, 0, 0, 0);
