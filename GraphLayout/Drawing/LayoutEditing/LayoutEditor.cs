@@ -22,6 +22,7 @@ namespace Microsoft.Msagl.Drawing {
     public class LayoutEditor {
 
         internal IViewerObject ActiveDraggedObject { get; set; }
+        public bool NodeMovingEnabled { get; set; } = true;
         public bool ShouldProcessRightClickOnSelectedEdge { get; set; } = true;
         internal Site PolylineVertex { get; set; }
 
@@ -617,12 +618,15 @@ namespace Microsoft.Msagl.Drawing {
             if (e.LeftButtonIsPressed) {
                 LeftMouseButtonWasPressed = true;
                 if (!InsertingEdge) {
-                    if (!(viewer.ObjectUnderMouseCursor is IViewerEdge))
-                        ActiveDraggedObject = viewer.ObjectUnderMouseCursor;
-                    if (ActiveDraggedObject != null)
-                        e.Handled = true;
-                    if (SelectedEdge != null)
-                        CheckIfDraggingPolylineVertex(e);
+                    if (NodeMovingEnabled)
+                    {
+                        if (!(viewer.ObjectUnderMouseCursor is IViewerEdge))
+                            ActiveDraggedObject = viewer.ObjectUnderMouseCursor;
+                        if (ActiveDraggedObject != null)
+                            e.Handled = true;
+                        if (SelectedEdge != null)
+                            CheckIfDraggingPolylineVertex(e);
+                    }
                 } else if (SourceOfInsertedEdge != null && SourcePort != null && DraggingStraightLine())
                     viewer.StartDrawingRubberLine(sourcePort.Location);
             } else if (e.RightButtonIsPressed)
