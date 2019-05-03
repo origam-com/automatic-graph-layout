@@ -144,7 +144,7 @@ namespace Microsoft.Msagl.Miscellaneous
         static void PrepareGraphForInitialLayoutByCluster(GeometryGraph geometryGraph,
             SugiyamaLayoutSettings sugiyamaLayoutSettings) {
             foreach (var cluster in geometryGraph.RootCluster.AllClustersDepthFirst()) {
-                cluster.RectangularBoundary = new RectangularClusterBoundary {TopMargin = 10};
+                cluster.RectangularBoundary = new RectangularClusterBoundary {TopMargin = 0};
 
                 if (cluster.BoundaryCurve == null)
                     cluster.BoundaryCurve = new RoundedRect(new Rectangle(0, 0, 10, 10), 3, 3);
