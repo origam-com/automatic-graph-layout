@@ -340,10 +340,17 @@ namespace Microsoft.Msagl.Layout.MDS {
                     var delta = r.Rectangle.LeftBottom - component.boundingBox.LeftBottom;
                     component.Translate(delta);
                 }
-                return new Rectangle(0, 0, packing.PackedWidth, packing.PackedHeight);
+                return new Rectangle(0, 0, 
+                    packing.PackedWidth ,
+                    packing.PackedHeight +  settings.ClusterTopMargin);
             }
-            if (rectangles.Count == 1)
-                return rectangles[0].Rectangle;
+
+            if (rectangles.Count == 1) {
+                return new Rectangle(0, 0, 
+                    rectangles[0].Rectangle.Width ,
+                    rectangles[0].Rectangle.Height +  settings.ClusterTopMargin);
+            }
+
             return Rectangle.CreateAnEmptyBox();
         }
     }

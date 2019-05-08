@@ -130,7 +130,8 @@ namespace Microsoft.Msagl.Core.Layout {
             get { return clusterMargin; }
             set { clusterMargin = value; }
         }
-        
+        public double ClusterTopMargin { get; set; }
+
 
         /// <summary>
         /// Clones the object
