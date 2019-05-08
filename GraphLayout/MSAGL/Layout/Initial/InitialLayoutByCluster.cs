@@ -294,7 +294,7 @@ namespace Microsoft.Msagl.Layout.Initial {
         void LayoutCluster(Cluster cluster) {
             if (cluster.IsCollapsed)
                 return;
-
+            
             LayoutAlgorithmSettings settings = clusterSettings(cluster);
             cluster.UnsetInitialLayoutState();
             if (runInParallel && cluster.Clusters.Count() > 1)
@@ -336,17 +336,19 @@ namespace Microsoft.Msagl.Layout.Initial {
         }
 
         private static Rectangle AdjustNewBoundsSoThatTheyRespectTheClusterSize(
-                Cluster cluster, Rectangle bounds) 
-        {
-            if (cluster.BoundaryCurve.BoundingBox.Width > bounds.Width ||
-                cluster.BoundaryCurve.BoundingBox.Height > bounds.Height ) {
-                bounds = new Rectangle(
-                    new Point(0, 0),
-                    new Point(cluster.BoundaryCurve.BoundingBox.Width,
-                    cluster.BoundaryCurve.BoundingBox.Height));
-            }
+                Cluster cluster, Rectangle bounds) {
             
-            return bounds;
+            double width = cluster.BoundaryCurve.BoundingBox.Width > bounds.Width
+                ? cluster.BoundaryCurve.BoundingBox.Width
+                : bounds.Width;
+
+            double height = cluster.BoundaryCurve.BoundingBox.Height > bounds.Height
+                ? cluster.BoundaryCurve.BoundingBox.Height
+                : bounds.Height;
+            
+            return new Rectangle(
+                new Point(0, 0),
+                new Point(width, height));
         }
 
         internal static void FixOriginalGraph(GeometryGraph graph, bool translateEdges) {
