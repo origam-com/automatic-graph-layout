@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Layout;
+using Microsoft.Msagl.Miscellaneous;
 
 namespace Microsoft.Msagl.Drawing
 {
     ///<summary>
     ///</summary>
-    public class Subgraph : Node {
+    public class Subgraph : Node , ILayoutAlgorithmSettingsProvider{
         /// <summary>
         /// the settings that should be applied to this cluster layout
         /// </summary>

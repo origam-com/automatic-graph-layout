@@ -103,7 +103,7 @@ namespace Microsoft.Msagl.Miscellaneous
 
             if (geometryGraph.RootCluster.Clusters.Any()) {
                 PrepareGraphForInitialLayoutByCluster(geometryGraph, sugiyamaLayoutSettings);
-                var initialBc = new InitialLayoutByCluster(geometryGraph, a => sugiyamaLayoutSettings);
+                var initialBc = new InitialLayoutByCluster(geometryGraph, a => (a.UserData as ILayoutAlgorithmSettingsProvider)?.LayoutSettings ?? sugiyamaLayoutSettings);
                 initialBc.Run(cancelToken);
                 //route the rest of the edges, those between the clusters
                 RouteAndLabelEdges(geometryGraph, sugiyamaLayoutSettings,
@@ -313,5 +313,9 @@ namespace Microsoft.Msagl.Miscellaneous
                 }
             }
         }
+    }
+
+    public interface ILayoutAlgorithmSettingsProvider {
+        LayoutAlgorithmSettings LayoutSettings { get; set; }
     }
 }
