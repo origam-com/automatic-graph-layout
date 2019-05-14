@@ -130,7 +130,7 @@ namespace Microsoft.Msagl.Core.Layout {
             get { return clusterMargin; }
             set { clusterMargin = value; }
         }
-        public double ClusterTopMargin { get; set; }
+        public double AdditionalClusterTopMargin { get; set; }
 
 
         /// <summary>

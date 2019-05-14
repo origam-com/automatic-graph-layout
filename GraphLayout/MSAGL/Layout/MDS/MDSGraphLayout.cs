@@ -342,13 +342,13 @@ namespace Microsoft.Msagl.Layout.MDS {
                 }
                 return new Rectangle(0, 0, 
                     packing.PackedWidth ,
-                    packing.PackedHeight +  settings.ClusterTopMargin);
+                    packing.PackedHeight +  settings.AdditionalClusterTopMargin);
             }
 
             if (rectangles.Count == 1) {
                 return new Rectangle(0, 0, 
                     rectangles[0].Rectangle.Width ,
-                    rectangles[0].Rectangle.Height +  settings.ClusterTopMargin);
+                    rectangles[0].Rectangle.Height +  settings.AdditionalClusterTopMargin);
             }
 
             return Rectangle.CreateAnEmptyBox();
