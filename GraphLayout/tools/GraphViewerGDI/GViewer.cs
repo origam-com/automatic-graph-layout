@@ -1710,6 +1710,18 @@ namespace Microsoft.Msagl.GraphViewerGdi {
             panel.Invalidate();
         }
 
+        public void CenterToXCoordinate(double x) {
+            var dx = PanelWidth/2.0 - CurrentScale * x;
+            transformation = new PlaneTransformation(CurrentScale, 0, dx, 0, -CurrentScale, transformation.Offset.Y);
+            panel.Invalidate();
+        }
+        
+        public void CenterToYCoordinate(double y) {
+            var dy = PanelHeight/2.0 - CurrentScale * y;
+            transformation = new PlaneTransformation(CurrentScale, 0, transformation.Offset.X, 0, -CurrentScale,dy);
+            panel.Invalidate();
+        }
+
         /// <summary>
         /// Finds the object under point (x,y) where x,y are given in the window coordinates
         /// </summary>

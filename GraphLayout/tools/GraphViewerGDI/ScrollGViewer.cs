@@ -432,8 +432,6 @@ namespace Microsoft.Msagl.GraphViewerGdi{
             set { EditingEnabled = value; }
         }
 
-        public IViewerObject DefaultDragObject { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
