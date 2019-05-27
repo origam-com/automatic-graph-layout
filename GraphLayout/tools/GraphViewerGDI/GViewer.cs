@@ -877,6 +877,13 @@ namespace Microsoft.Msagl.GraphViewerGdi {
             Invalidate();
         }
 
+        public bool RemoveEdge(Msagl.Drawing.Edge edge) {
+            DEdge edgeToRemove = DGraph.Edges.SingleOrDefault(dEdge => dEdge.DrawingEdge == edge);
+            if (edgeToRemove == null) return false;
+            RemoveEdge(edgeToRemove, false);
+            return true;
+        }
+
         /// <summary>
         /// removes an edge from the graph with the undo support
         /// </summary>
