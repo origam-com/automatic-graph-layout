@@ -298,9 +298,11 @@ namespace Microsoft.Msagl.GraphViewerGdi{
             //we need to draw the edited edges last
             DEdge dEdgeSelectedForEditing = null;
 
-            foreach (var subgraph in drawingGraph.RootSubgraph.AllSubgraphsWidthFirstExcludingSelf())
+            foreach (var subgraph in drawingGraph.RootSubgraph.AllSubgraphsWidthFirstExcludingSelf()) {
+                if (!nodeMap.ContainsKey(subgraph.Id)) continue;
                 DrawNode(g, nodeMap[subgraph.Id]);
-            
+            }
+
 
             foreach (DEdge dEdge in Edges)
                 if (!dEdge.SelectedForEditing)
