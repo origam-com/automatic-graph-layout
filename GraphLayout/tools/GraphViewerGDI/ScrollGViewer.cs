@@ -526,7 +526,8 @@ namespace Microsoft.Msagl.GraphViewerGdi{
             }
         }
 
-
+        public bool ReScaleOnWindowSizeChanged { get; set; } = true;
+        
         void InitPanel(){
             panel = new DrawingPanel{TabIndex = 0};
             Controls.Add(panel);
@@ -563,7 +564,8 @@ namespace Microsoft.Msagl.GraphViewerGdi{
         }
 
         Rectangle prevPanelClientRectangle;
-        void DrawingPanelSizeChanged(object sender, EventArgs e) {            
+        void DrawingPanelSizeChanged(object sender, EventArgs e) {
+            if (!ReScaleOnWindowSizeChanged) return;
             if (originalGraph == null || panel.ClientRectangle.Width<2 || panel.ClientRectangle.Height<2) return;
             double oldFitFactor = Math.Min(prevPanelClientRectangle.Width/originalGraph.Width, prevPanelClientRectangle.Height/originalGraph.Height);
             var center = new Point(prevPanelClientRectangle.Width / 2.0, prevPanelClientRectangle.Height / 2.0);
@@ -572,7 +574,6 @@ namespace Microsoft.Msagl.GraphViewerGdi{
                 SetTransformOnScaleAndCenter(GetFitScale()*CurrentScale/oldFitFactor, centerOnSource);
             }
             prevPanelClientRectangle = panel.ClientRectangle;
-            
         }
 
         void DrawingPanel_DoubleClick(object sender, EventArgs e){
