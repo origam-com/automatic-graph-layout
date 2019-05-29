@@ -18,6 +18,7 @@ namespace Microsoft.Msagl.Core.Layout
         /// <summary>
         /// Pack to desired ratio in columns
         /// </summary>
-        Columns
+        Columns,
+        CompactTop
     }
 }

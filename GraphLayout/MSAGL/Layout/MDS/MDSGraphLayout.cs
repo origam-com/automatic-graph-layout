@@ -330,10 +330,26 @@ namespace Microsoft.Msagl.Layout.MDS {
             List<RectangleToPack<GeometryGraph>> rectangles =
                 (from c in components select new RectangleToPack<GeometryGraph>(c.BoundingBox, c)).ToList();
             if (rectangles.Count > 1) {
-                OptimalPacking<GeometryGraph> packing = settings.PackingMethod == PackingMethod.Compact
-                    ? new OptimalRectanglePacking<GeometryGraph>(rectangles, settings.PackingAspectRatio)
-                    : (OptimalPacking<GeometryGraph>)
-                        new OptimalColumnPacking<GeometryGraph>(rectangles, settings.PackingAspectRatio);
+
+                OptimalPacking<GeometryGraph> packing;
+                switch (settings.PackingMethod) {
+                    case PackingMethod.Compact:
+                        packing =
+                            new OptimalRectanglePacking<GeometryGraph>(
+                                rectangles, settings.PackingAspectRatio);
+                        break;
+                    case PackingMethod.Columns: 
+                        packing =
+                            new OptimalColumnPacking<GeometryGraph>
+                                (rectangles, settings.PackingAspectRatio);
+                        break;
+                    case PackingMethod.CompactTop:
+                        packing =  new TopAlignedRectanglePacking<GeometryGraph>(
+                            rectangles, settings.PackingAspectRatio);
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
                 packing.Run();
                 foreach (var r in rectangles) {
                     GeometryGraph component = r.Data;

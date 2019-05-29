@@ -181,6 +181,7 @@
     <Compile Include="..\version.cs">
       <Link>version.cs</Link>
     </Compile>
+    <Compile Include="Core\Geometry\RectanglePacking\TopAlignedRectanglePacking.cs" />
     <Compile Include="GraphmapsWithMesh\Angle.cs" />
     <Compile Include="GraphmapsWithMesh\ComponentCollection.cs" />
     <Compile Include="Core\AlgorithmBase.cs" />
