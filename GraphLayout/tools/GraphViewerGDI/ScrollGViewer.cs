@@ -733,7 +733,7 @@ namespace Microsoft.Msagl.GraphViewerGdi{
             OnMouseDoubleClick(e);
         }
 
-        internal void Hit(MouseEventArgs args){
+        public void Hit(MouseEventArgs args){
             if (args.Button == MouseButtons.None)
                 UnconditionalHit(args, EntityFilterDelegate);
         }
