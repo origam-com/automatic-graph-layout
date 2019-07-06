@@ -131,6 +131,12 @@ namespace Microsoft.Msagl.Core.Layout {
             set { clusterMargin = value; }
         }
         public double AdditionalClusterTopMargin { get; set; }
+        
+        /// <summary>
+        /// Dislike other properties in the settings this one applies to the owner object of the settings (hence the self prefix).
+        /// Other properties are applied to children of the owner object!
+        /// </summary>
+        public Margins SelfMarginsOverride { get; set; }
 
 
         /// <summary>
@@ -138,5 +144,13 @@ namespace Microsoft.Msagl.Core.Layout {
         /// </summary>
         /// <returns></returns>
         public abstract LayoutAlgorithmSettings Clone();
+    }
+    
+    public class Margins {
+        
+        public double Left { get; set; }   
+        public double Right { get;set;  } 
+        public double Top { get;set;  } 
+        public double Bottom { get;set;  } 
     }
 }

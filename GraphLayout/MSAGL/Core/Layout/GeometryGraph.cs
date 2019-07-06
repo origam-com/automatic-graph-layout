@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Msagl.Core.DataStructures;
 using Microsoft.Msagl.Core.Geometry;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Layout.LargeGraphLayout;
+using Microsoft.Msagl.Miscellaneous;
 #if TEST_MSAGL
 using Microsoft.Msagl.DebugHelpers;
 using System.Diagnostics;
@@ -178,6 +178,11 @@ namespace Microsoft.Msagl.Core.Layout {
             UpdateBoundingBox();
         }
 
+        private Margins GetSelfMarginsOverride() {
+            var subGraph = (Nodes[0]?.UserData as Cluster)?.UserData as ILayoutAlgorithmSettingsProvider;
+            return subGraph?.LayoutSettings?.SelfMarginsOverride;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -186,8 +191,13 @@ namespace Microsoft.Msagl.Core.Layout {
             var b = Rectangle.CreateAnEmptyBox();
             PumpTheBoxToTheGraph(ref b);
             var del=new Point(Margins, -Margins);
-            b.RightBottom += del;
-            b.LeftTop -= del;
+            Margins selfMarginsOverride = GetSelfMarginsOverride();
+            b.RightBottom += new Point(
+                selfMarginsOverride != null && Math.Abs(selfMarginsOverride.Right) > 0.01 ? selfMarginsOverride.Right : Margins,
+                selfMarginsOverride != null && Math.Abs(selfMarginsOverride.Bottom) > 0.01 ? -selfMarginsOverride.Bottom : -Margins);
+            b.LeftTop -= new Point(              
+                selfMarginsOverride != null && Math.Abs(selfMarginsOverride.Left) > 0.01 ? selfMarginsOverride.Left : Margins ,
+                selfMarginsOverride != null && Math.Abs(selfMarginsOverride.Top) > 0.01 ? -selfMarginsOverride.Top : -Margins );
             b.Width = Math.Max(b.Width, MinimalWidth);
             b.Height = Math.Max(b.Height, MinimalHeight);
 
