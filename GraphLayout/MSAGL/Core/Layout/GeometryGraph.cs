@@ -179,6 +179,9 @@ namespace Microsoft.Msagl.Core.Layout {
         }
 
         private Margins GetSelfMarginsOverride() {
+            if (Nodes.Count == 0) {
+                return null;
+            }
             var subGraph = (Nodes[0]?.UserData as Cluster)?.UserData as ILayoutAlgorithmSettingsProvider;
             return subGraph?.LayoutSettings?.SelfMarginsOverride;
         }
